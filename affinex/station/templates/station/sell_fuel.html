@@ -1,0 +1,64 @@
+{% extends 'station/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Sell Fuel</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">{{ station.name }}</h4>
+                    <p class="card-text">Location: {{ station.location }}</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="fuelType" class="form-label">Fuel Type</label>
+                            <select name="fuel_type" id="fuelType" class="form-select">
+                                {% for fuel_type in station.fuel_types.all %}
+                                    <option value="{{ fuel_type.id }}">{{ fuel_type.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="volume" class="form-label">Volume (liters)</label>
+                            <input type="number" name="volume" id="volume" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Amount (Ksh)</label>
+                            <input type="number" name="amount" id="amount" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="paymentMode" class="form-label">Payment Mode</label>
+                            <select name="payment_mode" id="paymentMode" class="form-select">
+                                <option value="Cash">Cash</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Mobile Money">Mobile Money</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="attendant" class="form-label">Attendant</label>
+                            <select name="attendant" id="attendant" class="form-select">
+                                {% for attendant in station.attendant_set.all %}
+                                    <option value="{{ attendant.id }}">{{ attendant.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Sell</button>
+                            <a href="#" class="btn btn-secondary">Back to Stations</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

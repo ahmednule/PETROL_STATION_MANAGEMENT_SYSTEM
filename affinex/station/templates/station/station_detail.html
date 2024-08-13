@@ -1,0 +1,37 @@
+{% extends 'station/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">{{ station.name }}</h1>
+
+    <h2>Transactions</h2>
+    <div class="row">
+        {% for transaction in transactions %}
+        <div class="col-lg-12 col-md-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ transaction.date }}</h5>
+                    <p class="card-text">{{ transaction.fuel_type.name }}: {{ transaction.volume }}L</p>
+                    <p class="card-text">Amount: {{ transaction.amount }}Ksh</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2>Tanks</h2>
+    <div class="row">
+        {% for tank in tanks %}
+        <div class="col-lg-12 col-md-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tank.fuel_type.name }}</h5>
+                    <p class="card-text">Current Level: {{ tank.current_level }}L</p>
+                    <p class="card-text">Capacity: {{ tank.capacity }}L</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

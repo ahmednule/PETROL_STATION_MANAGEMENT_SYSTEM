@@ -1,0 +1,21 @@
+{% extends 'station/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mb-2">
+    <h1 class="mb-1">Petrol Stations</h1>
+    <div class="row">
+        {% for station in stations %}
+        <div class="col-md-4 mt-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{%static  'station/image4.jpg' %}" class="card-img-top" alt="{{ station.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ station.name }}</h5>
+                    <p class="card-text">{{ station.description }}</p>
+                    <a href="{% url 'station_detail' station.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
