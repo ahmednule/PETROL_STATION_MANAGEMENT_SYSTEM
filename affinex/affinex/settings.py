@@ -28,7 +28,6 @@ SECRET_KEY = 'django-insecure-pkcd@=u#13&lg=ue2-cafg!%9jgm-ob3iv!^^3np3*s38&2q4y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = ['https://petrol-station-management-system.onrender.com', 'localhost', '127.0.0.1']
 #ALLOWED_HOSTS = ['https://optiven-estate-management-information.onrender.com','localhost', '127.0.0.1']
