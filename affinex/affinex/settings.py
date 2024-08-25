@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['https://petrol-station-management-system.onrender.com', 'localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['https://optiven-estate-management-information.onrender.com','localhost', '127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['optiven-estate-management-information.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://petrol-station-management-system.onrender.com']
 
 # Application definition
 
