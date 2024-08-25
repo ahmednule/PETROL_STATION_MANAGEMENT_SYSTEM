@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+
 
 class FuelType(models.Model):
     name = models.CharField(max_length=50)
@@ -11,10 +12,14 @@ class FuelStation(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     fuel_types = models.ManyToManyField(FuelType)
+    image = models.ImageField(upload_to='images/',default='images/image1.jpg')
 
     def __str__(self):
         return self.name
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)
 class Transaction(models.Model):
     station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)
     fuel_type = models.ForeignKey(FuelType, on_delete=models.CASCADE)
@@ -39,6 +44,3 @@ class Attendant(models.Model):
 
     def __str__(self):
         return self.name
-
-class CustomUser(AbstractUser):
-    station = models.ForeignKey(FuelStation, on_delete=models.SET_NULL, null=True, blank=True)
