@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordResetView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-from .models import UserProfile
+from .models import UserProfile, User
 
 def home_view(request):
     stations = FuelStation.objects.all()
@@ -87,18 +87,38 @@ def signup_view(request):
         form = CustomUserCreationForm()
     return render(request, 'station/signup.html', {'form': form})
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('stations')
+#         else:
+#             print(form.errors)  # This will print out why the form is invalid
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, 'station/login.html', {'form': form})
+
 def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('stations')
+    return render(request,"station/login.html")
+
+def LoginUser(request):
+    if request.method=='POST':
+        uname=request.POST["uname"]
+        password=request.POST["password"]
+##checking username with database
+        user=User.objects.get(Username=uname)
+        if user.Password==password:
+            request.session["Username"]=user.Username
+            request.session["Email"]=user.Email
+            return render(request,"apps/properties.html")
         else:
-            print(form.errors)  # This will print out why the form is invalid
+            message="Password does not match"
+            return render(request,"apps/login.html",{'msg':message})
     else:
-        form = AuthenticationForm()
-    return render(request, 'station/login.html', {'form': form})
+        message="User does not exists"
+        return render(request,"apps/register.html",{'msg':message})
 
 def logout_view(request):
     logout(request)

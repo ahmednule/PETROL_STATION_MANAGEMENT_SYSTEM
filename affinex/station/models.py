@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class User(models.Model):
+    Username=models.CharField(max_length=50)
+    Email=models.EmailField(max_length=50)
+    Password=models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.Username
 
 class FuelType(models.Model):
     name = models.CharField(max_length=50)
